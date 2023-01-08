@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useRef, useState } from 'react'
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Animated } from 'react-native';
 import profile from './assets/profile.png';
@@ -74,59 +73,80 @@ export default function App() {
         left: 0,
         paddingHorizontal: 15,
         paddingVertical: 20,
+        borderRadius: showMenu ? 20 : 0,
         // Transform the view...
         transform: [
           { scale: scaleValue },
+          { translateX: offsetValue },
         ],
       }}>
 
-        {/* Menu Button */}
-        <TouchableOpacity onPress={() => {
-          // Do Actions Here...
-          // Scaling the view...
-          Animated.timing(scaleValue, {
-            toValue: showMenu ? 1 : 0.8,
-            duration: 300,
-            useNativeDriver: true,
-          }).start();
-
-          setShowMenu(!showMenu);
+        <Animated.View style={{
+          transform: [{
+            translateY: closeButtonOffset,
+          }],
         }}>
+          {/* Menu Button */}
+          <TouchableOpacity onPress={() => {
+            // Do Actions Here...
+            // Scaling the view...
+            Animated.timing(scaleValue, {
+              toValue: showMenu ? 1 : 0.8,
+              duration: 300,
+              useNativeDriver: true,
+            }).start();
 
-          <Image source={menu} style={{
-            width: 20,
-            height: 20,
-            tintColor: 'black',
-            marginTop: 30,
+            // Moving the view...
+            Animated.timing(offsetValue, {
+              toValue: showMenu ? 0 : 250,
+              duration: 300,
+              useNativeDriver: true,
+            }).start();
+
+            // Moving the close button...
+            Animated.timing(closeButtonOffset, {
+              toValue: !showMenu ? -30 : 0,
+              duration: 300,
+              useNativeDriver: true,
+            }).start();
+
+            setShowMenu(!showMenu);
+          }}>
+
+            <Image source={showMenu ? close : menu} style={{
+              width: 20,
+              height: 20,
+              tintColor: 'black',
+              marginTop: 30,
+            }} />
+
+          </TouchableOpacity>
+
+          <Text style={{
+            fontSize: 30,
+            fontWeight: 'bold',
+            color: 'black',
+            paddingTop: 20,
+          }}>{currentTab}</Text>
+
+          <Image source={photo} style={{
+            width: '100%',
+            height: 300,
+            borderRadius: 15,
+            marginTop: 20,
           }} />
 
-        </TouchableOpacity>
+          <Text style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            paddingTop: 15,
+            paddingBottom: 8,
+          }}>Tony Stark</Text>
 
-        <Text style={{
-          fontSize: 30,
-          fontWeight: 'bold',
-          color: 'black',
-          paddingTop: 20,
-        }}>{currentTab}</Text>
-
-        <Image source={photo} style={{
-          width: '100%',
-          height: 300,
-          borderRadius: 15,
-          marginTop: 20,
-        }} />
-
-        <Text style={{
-          fontSize: 20,
-          fontWeight: 'bold',
-          paddingTop: 15,
-          paddingBottom: 8,
-        }}>Tony Stark</Text>
-
-        <Text style={{}}>
-          Techie, Woodworker, and a Marvel Fanatic. I love to build shit!!!
-        </Text>
-
+          <Text style={{}}>
+            Techie, Woodworker, and a Marvel Fanatic. I love to build shit!!!
+          </Text>
+        </Animated.View>
 
       </Animated.View>
     </SafeAreaView>
