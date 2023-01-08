@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Animated } from 'react-native';
+// Photo
 import profile from './assets/profile.png';
 // Tab Icons ...
 import home from './assets/home.png';
@@ -10,8 +11,6 @@ import logout from './assets/logout.png';
 // Menu icons ...
 import menu from './assets/menu.png';
 import close from './assets/close.png';
-// Photo
-import photo from './assets/photo.jpg';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState('Home');
@@ -129,7 +128,7 @@ export default function App() {
             paddingTop: 20,
           }}>{currentTab}</Text>
 
-          <Image source={photo} style={{
+          <Image source={profile} style={{
             width: '100%',
             height: 300,
             borderRadius: 15,
