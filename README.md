@@ -1,6 +1,6 @@
 ## Custom SideMenu
 
-This is a custom side menu for android and iOS apps built with Expo.
+This is a custom side menu for android and iOS apps built with Expo. This doesn't need navigation to handle the menu open and close
 
 ### Something like this !!!
 
